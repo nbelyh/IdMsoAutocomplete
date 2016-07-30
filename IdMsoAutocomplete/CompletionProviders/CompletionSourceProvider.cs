@@ -1,19 +1,17 @@
 ﻿using System.ComponentModel.Composition;
-using Microsoft.VisualStudio.Utilities;
-using Glyphfriend.Helpers;
+using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Language.Intellisense;
+using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Operations;
-using Microsoft.VisualStudio.Text.Classification;
-using Microsoft.VisualStudio.Shell;
-using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.Utilities;
 
-namespace Glyphfriend.MsoImageCompletionProviders
+namespace IdMsoAutocomplete.CompletionProviders
 {
     [ContentType("xml")]
     [Name("MsoImage")]
     [Export(typeof(ICompletionSourceProvider))]
-    class MsoImageCompletionProvider : ICompletionSourceProvider
+    class CompletionSourceProvider : ICompletionSourceProvider
     {
         [Import]
         public ITextStructureNavigatorSelectorService TextStructureNavigatorSelector = null;
@@ -27,7 +25,7 @@ namespace Glyphfriend.MsoImageCompletionProviders
         public ICompletionSource TryCreateCompletionSource(ITextBuffer textBuffer)
         {
             // Build the MsoImage completion handler for the current text buffer
-            return new MsoImageCompletionSource(
+            return new CompletionSource(
                 textBuffer, 
                 TextStructureNavigatorSelector.GetTextStructureNavigator(textBuffer), 
                 ServiceProvider, 

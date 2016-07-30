@@ -1,26 +1,18 @@
-﻿using Microsoft.VisualStudio.Language.Intellisense;
-using Microsoft.VisualStudio.Text;
-using Microsoft.VisualStudio.Text.Classification;
-using Microsoft.VisualStudio.Text.Operations;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text.RegularExpressions;
-using System.Windows.Media;
-using Glyphfriend.Helpers;
-using Microsoft.XmlEditor;
 using Microsoft.VisualStudio.Editor;
+using Microsoft.VisualStudio.Language.Intellisense;
+using Microsoft.VisualStudio.Text;
+using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.TextManager.Interop;
-using System.Threading.Tasks;
-using IdMsoAutocomplete;
-using Microsoft.VisualStudio.Shell.Interop;
+using Microsoft.XmlEditor;
 
-namespace Glyphfriend.MsoImageCompletionProviders
+namespace IdMsoAutocomplete.CompletionProviders
 {
-    class MsoImageCompletionSource : ICompletionSource
+    class CompletionSource : ICompletionSource
     {
         private readonly ITextBuffer _buffer;
-        private List<Completion> _images;
         private IEnumerable<Entry> _entries;
 
         private IVsEditorAdaptersFactoryService _vsEditorAdaptersFactoryService;
@@ -28,7 +20,7 @@ namespace Glyphfriend.MsoImageCompletionProviders
         private IServiceProvider _serviceProvider;
         private bool _disposed = false;
 
-        public MsoImageCompletionSource(
+        public CompletionSource(
             ITextBuffer buffer,
             ITextStructureNavigator textStructureNavigator,
             IServiceProvider serviceProvider,
@@ -40,7 +32,7 @@ namespace Glyphfriend.MsoImageCompletionProviders
             _vsEditorAdaptersFactoryService = vsEditorAdaptersFactoryService;
         }
 
-        public IEnumerable<Entry> GetEntries(string type)
+        private IEnumerable<Entry> GetEntries(string type)
         {
             return _entries.Where(e => e.ControlType == type);
         }
@@ -79,10 +71,7 @@ namespace Glyphfriend.MsoImageCompletionProviders
                 if (idMso.Contains(attr.LocalName))
                 {
                     if (_entries == null)
-                    {
-                        ExcelLoader.LoadEntries();
-                        _entries = ExcelLoader.Entries;
-                    }
+                        _entries = ExcelLoader.GetIds();
 
                     XmlElement elt = (XmlElement)attr.Parent;
                     IEnumerable<Entry> completions = null;
@@ -219,22 +208,16 @@ namespace Glyphfriend.MsoImageCompletionProviders
                     if (completions != null)
                     {
                         completionSets.Clear();
-                        completionSets.Add(new CompletionSet("idMso", "idMso", CreateTrackingSpan(session), completions.ToIdList(), null));
+                        completionSets.Add(new CompletionSet("idMso", "idMso", CreateTrackingSpan(session), 
+                            completions.Select(e => e.Completion), null));
                     }
                 }
                 else if (attr.LocalName == "imageMso")
                 {
-                    if (_images == null)
-                    {
-                        IdMsoPackage.LoadMsoImages(OfficeVersion.Office2010);
-                        // Build a collection of MsoImages to handle 
-                        _images = IdMsoPackage.GetMsoImages(OfficeVersion.Office2010)
-                            .Select(e => MsoImageCompletion(e.Key, e.Value))
-                            .ToList();
-                    }
-
+                    var completions = ImageLoader.GetMsoImages();
+                
                     completionSets.Clear();
-                    completionSets.Add(new CompletionSet("imageMso", "imageMso", CreateTrackingSpan(session), _images.OrderBy(c => c.DisplayText), null));
+                    completionSets.Add(new CompletionSet("imageMso", "imageMso", CreateTrackingSpan(session), completions, null));
                 }
             }
         }
@@ -266,14 +249,6 @@ namespace Glyphfriend.MsoImageCompletionProviders
         public void Dispose()
         {
             _disposed = true;
-        }
-
-        private static Completion MsoImageCompletion(string msoImage, ImageSource MsoImageImage)
-        {
-            // Map a completion object for each MsoImage to the appropriate image
-            var formattedMsoImage = msoImage;
-            // Build a completion for each MsoImage
-            return new Completion(formattedMsoImage, formattedMsoImage, formattedMsoImage, MsoImageImage, formattedMsoImage);
         }
 
         private ITrackingSpan FindTokenSpanAtPosition(ICompletionSession session)

@@ -1,0 +1,30 @@
+﻿<Window 
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+    mc:Ignorable="d"
+    xmlns:configuration="clr-namespace:IdMsoAutocomplete.Configuration" 
+    x:Class="IdMsoAutocomplete.OptionsWindow" 
+    Width="540" 
+    Height="240"
+    Title="IdMso Autocomplete Configuration"
+    WindowStartupLocation="CenterScreen"
+    >
+    <Window.DataContext>
+        <configuration:Options/>
+    </Window.DataContext>
+    <Grid>
+        <TextBlock Height="80" Margin="10,10,10,10" VerticalAlignment="Top" TextWrapping="Wrap"
+                    Text="You are opening Ribbon XML file after installing IdMso autocomplete addin. Please select the target application, so that we can provide relevant autocomplete suggestions. You can change this choice any time later using Tools -&gt; Options -&gt; IdMso Autocomplete settings."/>
+
+        <Label Content="Office Application" HorizontalAlignment="Left" Margin="10,105,0,0" VerticalAlignment="Top" />
+        <ComboBox x:Name="OfficeApplication" Margin="126,105,10,0" VerticalAlignment="Top" SelectedItem="{Binding OfficeApplication}"/>
+
+        <Label Content="Office Version" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" />
+        <ComboBox x:Name="OfficeVersion" Margin="126,132,10,0" VerticalAlignment="Top" SelectedItem="{Binding OfficeVersion}" />
+
+        <Button x:Name="BtnOk" Content="OK" IsDefault="True" HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" VerticalAlignment="Bottom" Click="BtnOk_Click" />
+        <Button x:Name="BtnCancel" Content="Cancel" IsCancel="True" HorizontalAlignment="Right" Margin="0,0,10,10" Width="75" VerticalAlignment="Bottom"/>
+    </Grid>
+</Window>
