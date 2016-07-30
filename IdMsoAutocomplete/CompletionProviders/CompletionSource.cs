@@ -43,6 +43,19 @@ namespace IdMsoAutocomplete.CompletionProviders
             "insertAfterMso"
         };
 
+        private static readonly string[] SupportedControlsTypes =
+        {
+            "button",
+            "toggleButton",
+            "splitButton",
+            "menu",
+            "gallery",
+            "checkBox",
+            "comboBox",
+            "control",
+            "labelControl",
+        };
+
         private static readonly string[] SupportedNamespaces =
         {
             "http://schemas.microsoft.com/office/2009/07/customui",
@@ -74,8 +87,9 @@ namespace IdMsoAutocomplete.CompletionProviders
             {
                 XmlAttribute attr = (XmlAttribute)nf.Scope;
 
+                var attrName = attr.LocalName;
 
-                if (SupportedAttributeNames.Contains(attr.LocalName))
+                if (SupportedAttributeNames.Contains(attrName))
                 {
                     if (_entries == null)
                         _entries = ExcelLoader.GetIds(_serviceProvider);
@@ -91,125 +105,94 @@ namespace IdMsoAutocomplete.CompletionProviders
                     if (string.IsNullOrEmpty(type))
                         return;
 
-                    switch (type)
+                    if (type == "tab")
                     {
-                        case "tab":
-                            {
-                                completions = GetEntries(type);
+                        completions = GetEntries(type);
 
-                                var eltParent = elt.Parent as XmlElement;
-                                bool backstage = (eltParent != null && eltParent.LocalName == "backstage");
+                        var eltParent = elt.Parent as XmlElement;
+                        bool backstage = (eltParent != null && eltParent.LocalName == "backstage");
 
-                                completions = completions.Where(e => (e.TabSet == "None (Backstage View)") == backstage);
+                        completions = completions.Where(e => (e.TabSet == "None (Backstage View)") == backstage);
+                    }
+                    else if (type == "group")
+                    {
+                        completions = GetEntries(type);
 
-                                break;
-                            }
+                        var tabName = GetParentItemIdMso(elt, "tab");
 
-                        case "group":
-                            {
-                                completions = GetEntries(type);
+                        if (!string.IsNullOrEmpty(tabName))
+                            completions = completions.Where(e => e.Tab == tabName);
+                    }
+                    else if (SupportedControlsTypes.Contains(type))
+                    {
+                        var tab = GetParentItemIdMso(elt, "tab");
+                        var group = GetParentItemIdMso(elt, "group");
+                        var contextMenu = GetParentItemIdMso(elt, "contextMenu");
+    
+                        if (attrName == "idMso")
+                            completions = GetEntries(type);
+                        else
+                            completions = _entries.Where(e => SupportedControlsTypes.Contains(e.ControlType));
 
-                                var tabName = GetParentItemIdMso(elt, "tab");
+                        if (tab == "None (Context Menu)")
+                        {
+                            if (!string.IsNullOrEmpty(contextMenu))
+                                completions = completions.Where(e => e.Group == contextMenu);
+                        }
+                        else if (tab != "None (Backstage View)")
+                        {
+                            if (!string.IsNullOrEmpty(tab))
+                                completions = completions.Where(e => e.Tab == tab);
 
-                                if (!string.IsNullOrEmpty(tabName))
-                                    completions = completions.Where(e => e.Tab == tabName);
-                                break;
-                            }
+                            if (!string.IsNullOrEmpty(group))
+                                completions = completions.Where(e => e.Group == group);
+                        }
+                    }
+                    else if (type == "command")
+                    {
+                        completionSets.Clear();
 
-                        case "button":
-                        case "toggleButton":
-                        case "splitButton":
-                        case "menu":
-                        case "gallery":
-                        case "checkBox":
-                        case "comboBox":
-                        case "control":
-                        case "labelControl":
-                            {
-                                var tab = GetParentItemIdMso(elt, "tab");
-                                var group = GetParentItemIdMso(elt, "group");
-                                var contextMenu = GetParentItemIdMso(elt, "contextMenu");
+                        completions = _entries
+                            .Where(e => SupportedControlsTypes.Contains(e.ControlType));
+                    }
+                    else if (type == "category")
+                    {
+                        completions = GetEntries(type);
 
-                                completions = GetEntries(type);
+                        var tabName = GetParentItemIdMso(elt, "tab");
 
-                                if (tab == "None (Context Menu)")
-                                {
-                                    if (!string.IsNullOrEmpty(contextMenu))
-                                        completions = completions.Where(e => e.Group == contextMenu);
-                                }
-                                else if (tab != "None (Backstage View)")
-                                {
-                                    if (!string.IsNullOrEmpty(tab))
-                                        completions = completions.Where(e => e.Tab == tab);
+                        if (!string.IsNullOrEmpty(tabName))
+                            completions = completions.Where(e => e.Tab == tabName);
 
-                                    if (!string.IsNullOrEmpty(group))
-                                        completions = completions.Where(e => e.Group == group);
-                                }
+                        var taskGroupName = GetParentItemIdMso(elt, "taskGroup");
 
-                                break;
-                            }
+                        if (!string.IsNullOrEmpty(tabName))
+                            completions = completions.Where(e => e.Group == taskGroupName);
+                    }
+                    else if (type == "taskFormGroup" || type == "taskGroup")
+                    {
+                        completions = GetEntries(type);
 
-                        case "command":
-                            {
-                                completionSets.Clear();
+                        var tabName = GetParentItemIdMso(elt, "tab");
 
-                                completions = _entries
-                                    .Where(e => e.ControlType != "contextMenu");
+                        if (!string.IsNullOrEmpty(tabName))
+                            completions = completions.Where(e => e.Tab == tabName);
+                    }
+                    else if (type == "task")
+                    {
+                        completions = GetEntries(type);
 
-                                break;
-                            }
+                        var taskGroup = GetParentItemIdMso(elt, "taskGroup");
+                        if (!string.IsNullOrEmpty(taskGroup))
+                            completions = completions.Where(e => e.Group == taskGroup);
 
-                        case "category":
-                            {
-                                completions = GetEntries(type);
-
-                                var tabName = GetParentItemIdMso(elt, "tab");
-
-                                if (!string.IsNullOrEmpty(tabName))
-                                    completions = completions.Where(e => e.Tab == tabName);
-
-                                var taskGroupName = GetParentItemIdMso(elt, "taskGroup");
-
-                                if (!string.IsNullOrEmpty(tabName))
-                                    completions = completions.Where(e => e.Group == taskGroupName);
-
-                                break;
-                            }
-
-                        case "taskFormGroup":
-                        case "taskGroup":
-                            {
-                                completions = GetEntries(type);
-
-                                var tabName = GetParentItemIdMso(elt, "tab");
-
-                                if (!string.IsNullOrEmpty(tabName))
-                                    completions = completions.Where(e => e.Tab == tabName);
-
-                                break;
-                            }
-
-                        case "task":
-                            {
-                                completions = GetEntries(type);
-
-                                var taskGroup = GetParentItemIdMso(elt, "taskGroup");
-                                if (!string.IsNullOrEmpty(taskGroup))
-                                    completions = completions.Where(e => e.Group == taskGroup);
-
-                                var category = GetParentItemIdMso(elt, "category");
-                                if (!string.IsNullOrEmpty(taskGroup))
-                                    completions = completions.Where(e => e.ParentControl == category);
-
-                                break;
-                            }
-
-                        case "contextMenu":
-                            {
-                                completions = GetEntries(type);
-
-                                break;
-                            }
+                        var category = GetParentItemIdMso(elt, "category");
+                        if (!string.IsNullOrEmpty(taskGroup))
+                            completions = completions.Where(e => e.ParentControl == category);
+                    }
+                    else if (type == "contextMenu")
+                    {
+                        completions = GetEntries(type);
                     }
 
                     if (completions != null)
