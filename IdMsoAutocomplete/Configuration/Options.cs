@@ -30,24 +30,52 @@ namespace IdMsoAutocomplete.Configuration
 
     [ClassInterface(ClassInterfaceType.AutoDual)]
     [Guid("D9183604-3546-4151-848F-66EEB4EDB2AE")]
-    public class Options : DialogPage
+    public class Options : DialogPage, INotifyPropertyChanged
     {
+        private OfficeApplication _officeApplication;
+
         [Category("Target Office Version")]
         [DisplayName("Office Application")]
         [DefaultValue(OfficeApplication.NotSpecified)]
         public OfficeApplication OfficeApplication
         {
-            get;
-            set;
+            get
+            {
+                return _officeApplication;
+            }
+            set
+            {
+                _officeApplication = value;
+                OnPropertyChange("OfficeApplication");
+            }
         }
+
+        private OfficeVersion _officeVersion;
 
         [Category("Target Office Version")]
         [DisplayName("Office Version")]
         [DefaultValue(OfficeVersion.NotSpecified)]
         public OfficeVersion OfficeVersion
         {
-            get;
-            set;
+            get
+            {
+                return _officeVersion;
+            }
+            set
+            {
+                _officeVersion = value;
+                OnPropertyChange("OfficeVersion");
+            }
+        }
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        private void OnPropertyChange(string property)
+        {
+            if (PropertyChanged != null)
+            {
+                PropertyChanged(this, new PropertyChangedEventArgs(property));
+            }
         }
     }
 
