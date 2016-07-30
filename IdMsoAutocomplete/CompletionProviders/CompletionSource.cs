@@ -14,9 +14,10 @@ namespace IdMsoAutocomplete.CompletionProviders
         private readonly ITextBuffer _buffer;
         private IEnumerable<Entry> _entries;
 
-        private IVsEditorAdaptersFactoryService _vsEditorAdaptersFactoryService;
-        private IServiceProvider _serviceProvider;
-        private bool _disposed = false;
+        private readonly IVsEditorAdaptersFactoryService _vsEditorAdaptersFactoryService;
+        private readonly IServiceProvider _serviceProvider;
+        private readonly XmlLanguageService _xmlLanguageService;
+        private bool _disposed;
 
         public CompletionSource(
             ITextBuffer buffer,
@@ -26,6 +27,8 @@ namespace IdMsoAutocomplete.CompletionProviders
             _buffer = buffer;
             _serviceProvider = serviceProvider;
             _vsEditorAdaptersFactoryService = vsEditorAdaptersFactoryService;
+
+            _xmlLanguageService = (XmlLanguageService)_serviceProvider.GetService(typeof(XmlLanguageService));
         }
 
         private IEnumerable<Entry> GetEntries(string type)
@@ -33,7 +36,7 @@ namespace IdMsoAutocomplete.CompletionProviders
             return _entries.Where(e => e.ControlType == type);
         }
 
-        static readonly string[] idMso =
+        static readonly string[] SupportedAttributeNames =
         {
             "idMso",
             "insertBeforeMso",
@@ -41,9 +44,9 @@ namespace IdMsoAutocomplete.CompletionProviders
         };
 
         private static readonly string[] SupportedNamespaces =
-                {
+        {
             "http://schemas.microsoft.com/office/2009/07/customui",
-            "http://schemas.microsoft.com/office/2009/07/customui",
+            "http://schemas.microsoft.com/office/2006/01/customui",
         };
 
         public void AugmentCompletionSession(ICompletionSession session, IList<CompletionSet> completionSets)
@@ -52,15 +55,17 @@ namespace IdMsoAutocomplete.CompletionProviders
             if (_disposed)
                 return;
 
-            XmlLanguageService xls = (XmlLanguageService)_serviceProvider.GetService(typeof(XmlLanguageService));
-
             IVsTextView vsTextView = _vsEditorAdaptersFactoryService.GetViewAdapter(session.TextView);
 
             int line;
             int column;
-            int tmp = vsTextView.GetCaretPos(out line, out column);
+            vsTextView.GetCaretPos(out line, out column);
 
-            XmlDocument doc = xls.GetParseTree(xls.GetSource(vsTextView), vsTextView, line, column, Microsoft.VisualStudio.Package.ParseReason.CompleteWord);
+            XmlDocument doc = _xmlLanguageService.GetParseTree(
+                _xmlLanguageService.GetSource(vsTextView), vsTextView, line, column, Microsoft.VisualStudio.Package.ParseReason.CompleteWord);
+
+            if (doc == null || !SupportedNamespaces.Contains(doc.RootNamespaceURI))
+                return;
 
             NodeFinder nf = new NodeFinder(line, column);
             nf.Visit(doc);
@@ -70,7 +75,7 @@ namespace IdMsoAutocomplete.CompletionProviders
                 XmlAttribute attr = (XmlAttribute)nf.Scope;
 
 
-                if (idMso.Contains(attr.LocalName))
+                if (SupportedAttributeNames.Contains(attr.LocalName))
                 {
                     if (_entries == null)
                         _entries = ExcelLoader.GetIds(_serviceProvider);

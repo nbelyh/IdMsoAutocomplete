@@ -10,6 +10,8 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
+using Microsoft.XmlEditor;
+using ErrorHandler = Microsoft.VisualStudio.ErrorHandler;
 
 namespace IdMsoAutocomplete.CompletionProviders
 {
@@ -32,7 +34,10 @@ namespace IdMsoAutocomplete.CompletionProviders
         {
             // Set up the Completion handler for xml documents
             IWpfTextView view = AdaptersFactory.GetWpfTextView(textViewAdapter);
-            MsoImageCommandFilter filter = new MsoImageCommandFilter(view, CompletionBroker, ServiceProvider);
+
+            var xmlLanguageService = (XmlLanguageService)ServiceProvider.GetService(typeof(XmlLanguageService));
+            MsoImageCommandFilter filter = new MsoImageCommandFilter(view, CompletionBroker, xmlLanguageService);
+
             IOleCommandTarget next;
             ErrorHandler.ThrowOnFailure(textViewAdapter.AddCommandFilter(filter, out next));
             filter.Next = next;
@@ -43,13 +48,13 @@ namespace IdMsoAutocomplete.CompletionProviders
     {
         private readonly IWpfTextView _textView;
         private readonly ICompletionBroker _broker;
-        private readonly System.IServiceProvider _serviceProvider;
+        private readonly XmlLanguageService _xmlLanguageService;
         private ICompletionSession _currentSession;
         public IOleCommandTarget Next { get; set; }
 
-        public MsoImageCommandFilter(IWpfTextView textView, ICompletionBroker broker, System.IServiceProvider serviceProvider)
+        public MsoImageCommandFilter(IWpfTextView textView, ICompletionBroker broker, XmlLanguageService xmlLanguageService)
         {
-            _serviceProvider = serviceProvider;
+            _xmlLanguageService = xmlLanguageService;
             _textView = textView;
             _broker = broker;
             _currentSession = null;
@@ -222,8 +227,7 @@ namespace IdMsoAutocomplete.CompletionProviders
         {
             char key = (char)(ushort)Marshal.GetObjectForNativeVariant(pvaIn);
 
-            var xls = (Microsoft.XmlEditor.XmlLanguageService)_serviceProvider.GetService(typeof(Microsoft.XmlEditor.XmlLanguageService));
-            char quoteChar = xls.XmlPrefs.AutoInsertAttributeQuotes ? '=' : '"';
+            char quoteChar = _xmlLanguageService.XmlPrefs.AutoInsertAttributeQuotes ? '=' : '"';
 
             return key.Equals(quoteChar);
         }
