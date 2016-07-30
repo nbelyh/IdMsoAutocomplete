@@ -19,13 +19,13 @@ namespace IdMsoAutocomplete.CompletionProviders
     class TextViewListener : IVsTextViewCreationListener
     {
         [Import]
-        IVsEditorAdaptersFactoryService AdaptersFactory = null;
+        internal IVsEditorAdaptersFactoryService AdaptersFactory { get; set; }
 
         [Import]
-        ICompletionBroker CompletionBroker = null;
+        internal ICompletionBroker CompletionBroker { get; set; }
 
         [Import(typeof(SVsServiceProvider))]
-        System.IServiceProvider ServiceProvider = null;
+        internal System.IServiceProvider ServiceProvider { get; set; }
 
         // This will be triggered when a xml document is opened
         public void VsTextViewCreated(IVsTextView textViewAdapter)

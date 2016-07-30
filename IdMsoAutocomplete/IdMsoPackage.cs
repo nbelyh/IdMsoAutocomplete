@@ -1,5 +1,7 @@
-﻿using Microsoft.VisualStudio.Shell;
+﻿using System;
+using Microsoft.VisualStudio.Shell;
 using IdMsoAutocomplete.Configuration;
+using Microsoft.VisualStudio.Shell.Interop;
 
 namespace IdMsoAutocomplete
 {
@@ -14,13 +16,28 @@ namespace IdMsoAutocomplete
     {
         public const string PackageGuidString = "2bd31a92-3565-41c6-9c93-f0f112683544";
 
-        public static Options Options { get; private set; }
+        private static Options _options;
+        public static Options GetOptions(IServiceProvider serviceProvider)
+        {
+            if (_options == null)
+            {
+                var shell = serviceProvider.GetService(typeof(SVsShell)) as IVsShell;
+                if (shell != null)
+                {
+                    IVsPackage package;
+                    var packageToBeLoadedGuid = new Guid(PackageGuidString);
+                    shell.LoadPackage(ref packageToBeLoadedGuid, out package);
+                }
+            }
+
+            return _options;
+        }
 
         protected override void Initialize()
         {
             base.Initialize();
 
-            Options = GetDialogPage(typeof(Options)) as Options;
+            _options = GetDialogPage(typeof(Options)) as Options;
         }
     }
 }

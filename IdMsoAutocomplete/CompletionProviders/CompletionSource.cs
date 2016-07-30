@@ -4,7 +4,6 @@ using System.Linq;
 using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.Text;
-using Microsoft.VisualStudio.Text.Operations;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.XmlEditor;
 
@@ -16,18 +15,15 @@ namespace IdMsoAutocomplete.CompletionProviders
         private IEnumerable<Entry> _entries;
 
         private IVsEditorAdaptersFactoryService _vsEditorAdaptersFactoryService;
-        private ITextStructureNavigator _textStructureNavigator;
         private IServiceProvider _serviceProvider;
         private bool _disposed = false;
 
         public CompletionSource(
             ITextBuffer buffer,
-            ITextStructureNavigator textStructureNavigator,
             IServiceProvider serviceProvider,
             IVsEditorAdaptersFactoryService vsEditorAdaptersFactoryService)
         {
             _buffer = buffer;
-            _textStructureNavigator = textStructureNavigator;
             _serviceProvider = serviceProvider;
             _vsEditorAdaptersFactoryService = vsEditorAdaptersFactoryService;
         }
@@ -42,6 +38,12 @@ namespace IdMsoAutocomplete.CompletionProviders
             "idMso",
             "insertBeforeMso",
             "insertAfterMso"
+        };
+
+        private static readonly string[] SupportedNamespaces =
+                {
+            "http://schemas.microsoft.com/office/2009/07/customui",
+            "http://schemas.microsoft.com/office/2009/07/customui",
         };
 
         public void AugmentCompletionSession(ICompletionSession session, IList<CompletionSet> completionSets)
@@ -71,7 +73,7 @@ namespace IdMsoAutocomplete.CompletionProviders
                 if (idMso.Contains(attr.LocalName))
                 {
                     if (_entries == null)
-                        _entries = ExcelLoader.GetIds();
+                        _entries = ExcelLoader.GetIds(_serviceProvider);
 
                     XmlElement elt = (XmlElement)attr.Parent;
                     IEnumerable<Entry> completions = null;
@@ -214,7 +216,7 @@ namespace IdMsoAutocomplete.CompletionProviders
                 }
                 else if (attr.LocalName == "imageMso")
                 {
-                    var completions = ImageLoader.GetMsoImages();
+                    var completions = ImageLoader.GetMsoImages(_serviceProvider);
                 
                     completionSets.Clear();
                     completionSets.Add(new CompletionSet("imageMso", "imageMso", CreateTrackingSpan(session), completions, null));
@@ -250,16 +252,6 @@ namespace IdMsoAutocomplete.CompletionProviders
         {
             _disposed = true;
         }
-
-        private ITrackingSpan FindTokenSpanAtPosition(ICompletionSession session)
-        {
-            // Look for the nearly start of line or space prior to the starting character and 
-            // examine it
-            SnapshotPoint currentPoint = session.TextView.Caret.Position.BufferPosition - 1;
-            TextExtent extent = _textStructureNavigator.GetExtentOfWord(currentPoint);
-            return currentPoint.Snapshot.CreateTrackingSpan(extent.Span, SpanTrackingMode.EdgeInclusive);
-        }
-
 
     }
 }

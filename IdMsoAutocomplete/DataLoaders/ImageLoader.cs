@@ -4,7 +4,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Linq;
 using System.Reflection;
-using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using IdMsoAutocomplete.Configuration;
 using Microsoft.VisualStudio.Language.Intellisense;
@@ -15,9 +14,9 @@ namespace IdMsoAutocomplete
     {
         private static Dictionary<OfficeVersion, IEnumerable<Completion>> _msoImages;
 
-        public static IEnumerable<Completion> GetMsoImages()
+        public static IEnumerable<Completion> GetMsoImages(IServiceProvider serviceProvider)
         {
-            var options = IdMsoPackage.Options;
+            var options = IdMsoPackage.GetOptions(serviceProvider);
 
             if (options.OfficeVersion == OfficeVersion.NotSpecified)
             {
@@ -27,10 +26,10 @@ namespace IdMsoAutocomplete
                     return new List<Completion>();
             }
 
-            return GetMsoImages(options.OfficeVersion);
+            return GetMsoImagesFromCache(options.OfficeVersion);
         }
 
-        private static IEnumerable<Completion> GetMsoImages(OfficeVersion officeVersion)
+        private static IEnumerable<Completion> GetMsoImagesFromCache(OfficeVersion officeVersion)
         {
             if (_msoImages == null)
                 _msoImages = new Dictionary<OfficeVersion, IEnumerable<Completion>>();

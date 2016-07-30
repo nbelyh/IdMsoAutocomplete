@@ -24,7 +24,7 @@ namespace IdMsoAutocomplete
     {
         private static IDictionary<OfficeVersion, IDictionary<OfficeApplication, IEnumerable<Entry>>> _entries;
 
-        private static IEnumerable<Entry> GetIds(OfficeVersion officeVersion, OfficeApplication officeApplication)
+        private static IEnumerable<Entry> GetIdsFromCache(OfficeVersion officeVersion, OfficeApplication officeApplication)
         {
             if (_entries == null)
                 _entries = new Dictionary<OfficeVersion, IDictionary<OfficeApplication, IEnumerable<Entry>>>();
@@ -69,9 +69,9 @@ namespace IdMsoAutocomplete
             }
         }
 
-        public static IEnumerable<Entry> GetIds()
+        public static IEnumerable<Entry> GetIds(IServiceProvider serviceProvider)
         {
-            var options = IdMsoPackage.Options;
+            var options = IdMsoPackage.GetOptions(serviceProvider);
 
             if (options.OfficeVersion == OfficeVersion.NotSpecified || options.OfficeApplication == OfficeApplication.NotSpecified)
             {
@@ -81,7 +81,7 @@ namespace IdMsoAutocomplete
                     return new List<Entry>();
             }
 
-            return GetIds(options.OfficeVersion, options.OfficeApplication).ToList();
+            return GetIdsFromCache(options.OfficeVersion, options.OfficeApplication).ToList();
         }
     }
 }
