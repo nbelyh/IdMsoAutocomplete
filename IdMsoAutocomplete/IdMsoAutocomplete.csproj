@@ -1,0 +1,472 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="14.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <MinimumVisualStudioVersion>14.0</MinimumVisualStudioVersion>
+    <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+    <UseCodebase>true</UseCodebase>
+    <TargetFrameworkProfile />
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignAssembly>true</SignAssembly>
+  </PropertyGroup>
+  <PropertyGroup>
+    <AssemblyOriginatorKeyFile>Key.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectTypeGuids>{82b43b9b-a64c-4715-b499-d71e9ca2bd60};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <ProjectGuid>{35CBAE7E-C672-4D97-A07D-CFAD5FEE5187}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>IdMsoAutocomplete</RootNamespace>
+    <AssemblyName>IdMsoAutocomplete</AssemblyName>
+    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <GeneratePkgDefFile>true</GeneratePkgDefFile>
+    <IncludeAssemblyInVSIXContainer>true</IncludeAssemblyInVSIXContainer>
+    <IncludeDebugSymbolsInVSIXContainer>true</IncludeDebugSymbolsInVSIXContainer>
+    <IncludeDebugSymbolsInLocalVSIXDeployment>true</IncludeDebugSymbolsInLocalVSIXDeployment>
+    <CopyBuildOutputToOutputDirectory>true</CopyBuildOutputToOutputDirectory>
+    <CopyOutputSymbolsToOutputDirectory>false</CopyOutputSymbolsToOutputDirectory>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="IdMsoPackage.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="MsoImageCompletionProviders\ExcelLoader.cs" />
+    <Compile Include="MsoImageCompletionProviders\MsoImageCompletionSource.cs" />
+    <Compile Include="MsoImageCompletionProviders\MsoImageGlyphCompletionProvider.cs" />
+    <Compile Include="MsoImageCompletionProviders\MsoImageTextViewListener.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Package.ico" />
+    <None Include="Key.snk" />
+    <Content Include="OfficeData\Office2010\AccessControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\ExcelControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\InfoPathDesignerControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\InfoPathEditorControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OneNoteControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookAppointmentItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookContactGroupItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookContactItemControl.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookExplorerControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookJournalItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookMailComposeItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookMailReadItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookMeetingRequestReadItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookMeetingResponseComposeItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookMeetingResponseProposeItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookMeetingResponseReadItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookMultimediaMessageComposeItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookMultimediaMessageReadItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookPostComposeItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookPostReadItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookReportItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookRequestForwardItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookResendItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookRSSItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookShareItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookTaskItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookTextMessageComposeItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\OutlookTextMessageReadItemControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\PowerPointControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\ProjectControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\PublisherControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\VisioControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\WordControls.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2010\_imageMso.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\accesscontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\excelcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\infopathdesignercontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\infopatheditorcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\onenotecontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookaddritemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookapptitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookdlstitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookexplorercontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlooklogitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookmailitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookmailreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookmmseditcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookmmsreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookpostitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookpostreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookreportitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookreqreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookreqsendcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookresenditemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookrespcountercontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookresponsereadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookresponsesendcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookrssitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlookshareitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlooksmseditcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlooksmsreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\outlooktaskitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\powerpointcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\projectcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\publishercontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\sharepointdesignercontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\visiocontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\wordcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2013\_imageMso.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\accesscontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\excelcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\onenotecontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookaddritemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookapptitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookdlstitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookexplorercontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlooklogitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookmailitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookmailreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookmmseditcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookmmsreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookpostitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookpostreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookreportitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookreqreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookreqsendcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookresenditemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookrespcountercontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookresponsereadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookresponsesendcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookrssitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlookshareitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlooksmseditcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlooksmsreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\outlooktaskitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\powerpointcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\projectcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\publishercontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\sharepointdesignercontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\visiocontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\wordcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <None Include="packages.config" />
+    <None Include="source.extension.vsixmanifest">
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Reference Include="EPPlus, Version=4.1.0.0, Culture=neutral, PublicKeyToken=ea159fdaa78159a1, processorArchitecture=MSIL">
+      <HintPath>..\packages\EPPlus.4.1.0\lib\net40\EPPlus.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.VisualStudio.CoreUtility, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.CoreUtility.14.3.25407\lib\net45\Microsoft.VisualStudio.CoreUtility.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Editor, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Editor.14.3.25407\lib\net45\Microsoft.VisualStudio.Editor.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Language.Intellisense, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Language.Intellisense.14.3.25407\lib\net45\Microsoft.VisualStudio.Language.Intellisense.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.OLE.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.OLE.Interop.7.10.6070\lib\Microsoft.VisualStudio.OLE.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Package.LanguageService.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Package.LanguageService.14.0.14.3.25407\lib\Microsoft.VisualStudio.Package.LanguageService.14.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.14.0, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.14.0.14.3.25407\lib\Microsoft.VisualStudio.Shell.14.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Immutable.10.0, Version=10.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Immutable.10.0.10.0.30319\lib\net40\Microsoft.VisualStudio.Shell.Immutable.10.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.7.10.6071\lib\Microsoft.VisualStudio.Shell.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.8.0.8.0.50727\lib\Microsoft.VisualStudio.Shell.Interop.8.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Shell.Interop.9.0, Version=9.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.Shell.Interop.9.0.9.0.30729\lib\Microsoft.VisualStudio.Shell.Interop.9.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Text.Data, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Text.Data.14.3.25407\lib\net45\Microsoft.VisualStudio.Text.Data.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Text.Logic, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Text.Logic.14.3.25407\lib\net45\Microsoft.VisualStudio.Text.Logic.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Text.UI, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Text.UI.14.3.25407\lib\net45\Microsoft.VisualStudio.Text.UI.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.Text.UI.Wpf, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.VisualStudio.Text.UI.Wpf.14.3.25407\lib\net45\Microsoft.VisualStudio.Text.UI.Wpf.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TextManager.Interop, Version=7.1.40304.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.7.10.6070\lib\Microsoft.VisualStudio.TextManager.Interop.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.VisualStudio.TextManager.Interop.8.0, Version=8.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a">
+      <HintPath>..\packages\Microsoft.VisualStudio.TextManager.Interop.8.0.8.0.50727\lib\Microsoft.VisualStudio.TextManager.Interop.8.0.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="Microsoft.XmlEditor, Version=14.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>Dependencies\Microsoft.XmlEditor.dll</HintPath>
+    </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.ComponentModel.Composition" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xaml" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="VSPackage.resx">
+      <MergeWithCTO>true</MergeWithCTO>
+      <ManifestResourceName>VSPackage</ManifestResourceName>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(VSToolsPath)\VSSDK\Microsoft.VsSDK.targets" Condition="'$(VSToolsPath)' != ''" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
