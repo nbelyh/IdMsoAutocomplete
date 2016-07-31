@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.XmlEditor;
 
-namespace IdMsoAutocomplete.Completion
+namespace IdMsoAutocomplete.CompletionSupport
 {
     class CompletionSource : ICompletionSource
     {

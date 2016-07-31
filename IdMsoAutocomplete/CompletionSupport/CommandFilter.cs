@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.OLE.Interop;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
 
-namespace IdMsoAutocomplete.Completion
+namespace IdMsoAutocomplete.CompletionSupport
 {
     public class CommandFilter : IOleCommandTarget
     {

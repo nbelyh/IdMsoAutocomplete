@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.Composition;
+﻿using System;
+using System.ComponentModel.Composition;
 using System.Linq;
 using IdMsoAutocomplete.Configuration;
 using Microsoft.VisualStudio.Editor;
@@ -12,7 +13,7 @@ using Microsoft.XmlEditor;
 using ErrorHandler = Microsoft.VisualStudio.ErrorHandler;
 using Task = System.Threading.Tasks.Task;
 
-namespace IdMsoAutocomplete.Completion
+namespace IdMsoAutocomplete.CompletionSupport
 {
     [Export(typeof(IVsTextViewCreationListener))]
     [ContentType("xml")]
@@ -57,7 +58,7 @@ namespace IdMsoAutocomplete.Completion
 
             if (options.OfficeApplication != OfficeApplication.NotSpecified &&
                 options.OfficeVersion != OfficeVersion.NotSpecified)
-                Task.Run(() => ImageLoader.GetMsoImagesFromCache(options.OfficeVersion));
+                Task.Run((Action) (() => ImageLoader.GetMsoImagesFromCache(options.OfficeVersion)));
         }
 
         private static bool XmlFileIsRibbon(IWpfTextView view)

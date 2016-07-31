@@ -53,10 +53,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Compile Include="Completion\CommandFilter.cs" />
-    <Compile Include="Completion\CompletionSource.cs" />
-    <Compile Include="Completion\CompletionSourceProvider.cs" />
-    <Compile Include="Completion\TextViewListener.cs" />
+    <Compile Include="CompletionSupport\CommandFilter.cs" />
+    <Compile Include="CompletionSupport\CompletionSource.cs" />
+    <Compile Include="CompletionSupport\CompletionSourceProvider.cs" />
+    <Compile Include="CompletionSupport\TextViewListener.cs" />
     <Compile Include="Configuration\Options.cs">
       <SubType>Component</SubType>
     </Compile>

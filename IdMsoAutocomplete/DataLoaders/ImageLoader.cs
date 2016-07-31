@@ -12,7 +12,7 @@ namespace IdMsoAutocomplete
 {
     public static class ImageLoader
     {
-        private static Dictionary<OfficeVersion, IEnumerable<Completion>> _msoImages;
+        private static Dictionary<OfficeVersion, IEnumerable<Microsoft.VisualStudio.Language.Intellisense.Completion>> _msoImages;
 
         public static IEnumerable<Completion> GetMsoImages(IServiceProvider serviceProvider)
         {

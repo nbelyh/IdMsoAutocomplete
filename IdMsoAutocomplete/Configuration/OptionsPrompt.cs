@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace IdMsoAutocomplete.Configuration
+﻿namespace IdMsoAutocomplete.Configuration
 {
     public static class OptionsPrompt
     {
