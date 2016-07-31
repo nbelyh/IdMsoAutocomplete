@@ -1,52 +1,15 @@
-﻿using System;
-using System.ComponentModel.Composition;
+using System;
 using System.Runtime.InteropServices;
+using System.Windows.Threading;
 using Microsoft.VisualStudio;
-using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.OLE.Interop;
-using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Text.Editor;
-using Microsoft.VisualStudio.TextManager.Interop;
-using Microsoft.VisualStudio.Utilities;
-using Microsoft.XmlEditor;
-using ErrorHandler = Microsoft.VisualStudio.ErrorHandler;
-using System.Windows.Threading;
 
-namespace IdMsoAutocomplete.CompletionProviders
+namespace IdMsoAutocomplete.Completion
 {
-    [Export(typeof(IVsTextViewCreationListener))]
-    [ContentType("xml")]
-    [TextViewRole(PredefinedTextViewRoles.Document)]
-    class TextViewListener : IVsTextViewCreationListener
-    {
-        [Import]
-        internal IVsEditorAdaptersFactoryService AdaptersFactory { get; set; }
-
-        [Import]
-        internal ICompletionBroker CompletionBroker { get; set; }
-
-        [Import(typeof(SVsServiceProvider))]
-        internal System.IServiceProvider ServiceProvider { get; set; }
-
-        // This will be triggered when a xml document is opened
-        public void VsTextViewCreated(IVsTextView textViewAdapter)
-        {
-            // Set up the Completion handler for xml documents
-            var view = AdaptersFactory.GetWpfTextView(textViewAdapter);
-
-            var xmlLanguageService = (XmlLanguageService)ServiceProvider.GetService(typeof(XmlLanguageService));
-            var quoteChar = xmlLanguageService.XmlPrefs.AutoInsertAttributeQuotes;
-            var filter = new MsoImageCommandFilter(view, CompletionBroker, quoteChar);
-
-            IOleCommandTarget next;
-            ErrorHandler.ThrowOnFailure(textViewAdapter.AddCommandFilter(filter, out next));
-            filter.Next = next;
-        }
-    }
-
-    public class MsoImageCommandFilter : IOleCommandTarget
+    public class CommandFilter : IOleCommandTarget
     {
         private readonly IWpfTextView _textView;
         private readonly ICompletionBroker _broker;
@@ -54,7 +17,7 @@ namespace IdMsoAutocomplete.CompletionProviders
         private ICompletionSession _currentSession;
         public IOleCommandTarget Next { get; set; }
 
-        public MsoImageCommandFilter(IWpfTextView textView, ICompletionBroker broker, bool useEq)
+        public CommandFilter(IWpfTextView textView, ICompletionBroker broker, bool useEq)
         {
             _useEq = useEq;
             _textView = textView;

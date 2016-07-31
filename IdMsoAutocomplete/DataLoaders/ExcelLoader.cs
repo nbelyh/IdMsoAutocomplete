@@ -24,7 +24,7 @@ namespace IdMsoAutocomplete
     {
         private static IDictionary<OfficeVersion, IDictionary<OfficeApplication, IEnumerable<Entry>>> _entries;
 
-        private static IEnumerable<Entry> GetIdsFromCache(OfficeVersion officeVersion, OfficeApplication officeApplication)
+        public static IEnumerable<Entry> GetIdsFromCache(OfficeVersion officeVersion, OfficeApplication officeApplication)
         {
             if (_entries == null)
                 _entries = new Dictionary<OfficeVersion, IDictionary<OfficeApplication, IEnumerable<Entry>>>();

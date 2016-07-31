@@ -53,6 +53,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="Completion\CommandFilter.cs" />
+    <Compile Include="Completion\CompletionSource.cs" />
+    <Compile Include="Completion\CompletionSourceProvider.cs" />
+    <Compile Include="Completion\TextViewListener.cs" />
     <Compile Include="Configuration\Options.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -60,17 +64,17 @@
     <Compile Include="IdMsoPackage.cs" />
     <Compile Include="DataLoaders\ExcelLoader.cs" />
     <Compile Include="DataLoaders\ImageLoader.cs" />
-    <Compile Include="CompletionProviders\CompletionSource.cs" />
-    <Compile Include="CompletionProviders\CompletionSourceProvider.cs" />
-    <Compile Include="CompletionProviders\TextViewListener.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Configuration\OptionsWindow.xaml.cs">
       <DependentUpon>OptionsWindow.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Dependencies\Microsoft.XmlEditor.dll" />
-    <Content Include="Package.ico" />
+    <None Include="Dependencies\12\Microsoft.XmlEditor.dll" />
+    <Content Include="Package.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.2013.vsixmanifest" />
     <None Include="Key.snk" />
     <Content Include="OfficeData\Office2010\AccessControls.xlsx">

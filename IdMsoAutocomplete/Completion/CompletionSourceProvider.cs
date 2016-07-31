@@ -5,7 +5,7 @@ using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.Utilities;
 
-namespace IdMsoAutocomplete.CompletionProviders
+namespace IdMsoAutocomplete.Completion
 {
     [ContentType("xml")]
     [Name("MsoImage")]

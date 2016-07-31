@@ -2,8 +2,9 @@
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
   <Metadata>
     <Identity Id="UnmanagedVisio.IdMsoAutocomplete.2015" Version="1.0" Language="en-US" Publisher="Nikolay Belykh" />
-    <DisplayName>idMso Autocomplete</DisplayName>
+    <DisplayName>IdMso Autocomplete vs.2015</DisplayName>
     <Description>Provides intellisense and icons for office ribbon files (idMso and imageMso values).</Description>
+    <Icon>Package.ico</Icon>
     <Tags>visual studio intellisense, intellisense, icon intellisense, idmso, imagemso</Tags>
   </Metadata>
   <Installation>

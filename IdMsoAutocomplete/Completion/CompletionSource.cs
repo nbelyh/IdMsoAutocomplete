@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.Text;
 using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.XmlEditor;
 
-namespace IdMsoAutocomplete.CompletionProviders
+namespace IdMsoAutocomplete.Completion
 {
     class CompletionSource : ICompletionSource
     {
@@ -63,7 +63,7 @@ namespace IdMsoAutocomplete.CompletionProviders
             "labelControl",
         };
 
-        private static readonly string[] SupportedNamespaces =
+        public static readonly string[] SupportedNamespaces =
         {
             "http://schemas.microsoft.com/office/2009/07/customui",
             "http://schemas.microsoft.com/office/2006/01/customui",

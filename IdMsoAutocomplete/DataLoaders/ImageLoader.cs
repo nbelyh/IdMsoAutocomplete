@@ -29,7 +29,7 @@ namespace IdMsoAutocomplete
             return GetMsoImagesFromCache(options.OfficeVersion);
         }
 
-        private static IEnumerable<Completion> GetMsoImagesFromCache(OfficeVersion officeVersion)
+        public static IEnumerable<Completion> GetMsoImagesFromCache(OfficeVersion officeVersion)
         {
             if (_msoImages == null)
                 _msoImages = new Dictionary<OfficeVersion, IEnumerable<Completion>>();

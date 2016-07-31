@@ -14,30 +14,19 @@ namespace IdMsoAutocomplete
     [ProvideProfileAttribute(typeof(Options), "IdMsoAutocomplete", "General", 0, 0, true)]
     public sealed class IdMsoPackage : Package
     {
-        public const string PackageGuidString = "2bd31a92-3565-41c6-9c93-f0f112683544";
+        private const string PackageGuidString = "2bd31a92-3565-41c6-9c93-f0f112683544";
 
-        private static Options _options;
         public static Options GetOptions(IServiceProvider serviceProvider)
         {
-            if (_options == null)
-            {
-                var shell = serviceProvider.GetService(typeof(SVsShell)) as IVsShell;
-                if (shell != null)
-                {
-                    IVsPackage package;
-                    var packageToBeLoadedGuid = new Guid(PackageGuidString);
-                    shell.LoadPackage(ref packageToBeLoadedGuid, out package);
-                }
-            }
+            var shell = serviceProvider.GetService(typeof(SVsShell)) as IVsShell;
 
-            return _options;
-        }
+            IVsPackage package;
+            var packageToBeLoadedGuid = new Guid(PackageGuidString);
+            shell.LoadPackage(ref packageToBeLoadedGuid, out package);
 
-        protected override void Initialize()
-        {
-            base.Initialize();
+            var thisPackage = (IdMsoPackage) package;
 
-            _options = GetDialogPage(typeof(Options)) as Options;
+            return thisPackage.GetDialogPage(typeof(Options)) as Options;
         }
     }
 }
