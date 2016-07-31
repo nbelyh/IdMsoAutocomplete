@@ -9,7 +9,7 @@ namespace IdMsoAutocomplete
 
     [PackageRegistration(UseManagedResourcesOnly = true)]
     [InstalledProductRegistration("#110", "#112", "1.0", IconResourceID = 400)] // Info on this package for Help/About
-    [Guid(IdMsoPackage.PackageGuidString)]
+    [Guid(PackageGuidString)]
     [ProvideOptionPage(typeof(Options), "IdMso Autocomplete", "General", 0, 0, true)]
     [ProvideProfileAttribute(typeof(Options), "IdMsoAutocomplete", "General", 0, 0, true)]
     public sealed class IdMsoPackage : Package
