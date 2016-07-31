@@ -1,14 +1,13 @@
 ﻿using System;
 using System.Linq;
 using System.Windows;
-using IdMsoAutocomplete.Configuration;
 
-namespace IdMsoAutocomplete
+namespace IdMsoAutocomplete.Configuration
 {
     /// <summary>
     /// Interaction logic for OptionsWindow.xaml
     /// </summary>
-    public partial class OptionsWindow : Window
+    public partial class OptionsWindow
     {
         public OptionsWindow(Options options)
         {

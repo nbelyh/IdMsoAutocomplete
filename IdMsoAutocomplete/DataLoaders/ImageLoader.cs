@@ -8,11 +8,11 @@ using System.Windows.Media.Imaging;
 using IdMsoAutocomplete.Configuration;
 using Microsoft.VisualStudio.Language.Intellisense;
 
-namespace IdMsoAutocomplete
+namespace IdMsoAutocomplete.DataLoaders
 {
     public static class ImageLoader
     {
-        private static Dictionary<OfficeVersion, IEnumerable<Microsoft.VisualStudio.Language.Intellisense.Completion>> _msoImages;
+        private static Dictionary<OfficeVersion, IEnumerable<Completion>> _msoImages;
 
         public static IEnumerable<Completion> GetMsoImages(IServiceProvider serviceProvider)
         {

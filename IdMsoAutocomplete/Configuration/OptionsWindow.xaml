@@ -5,7 +5,7 @@
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
     mc:Ignorable="d"
     xmlns:configuration="clr-namespace:IdMsoAutocomplete.Configuration" 
-    x:Class="IdMsoAutocomplete.OptionsWindow" 
+    x:Class="IdMsoAutocomplete.Configuration.OptionsWindow" 
     Width="540" 
     Height="240"
     Title="IdMso Autocomplete Configuration"
@@ -24,7 +24,7 @@
         <Label Content="Office Version" HorizontalAlignment="Left" Margin="10,132,0,0" VerticalAlignment="Top" />
         <ComboBox x:Name="OfficeVersion" Margin="126,132,10,0" VerticalAlignment="Top" SelectedItem="{Binding OfficeVersion}" />
 
-        <Button x:Name="BtnOk" Content="OK" IsDefault="True" HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" VerticalAlignment="Bottom" Click="BtnOk_Click" />
-        <Button x:Name="BtnCancel" Content="Cancel" IsCancel="True" HorizontalAlignment="Right" Margin="0,0,10,10" Width="75" VerticalAlignment="Bottom"/>
+        <Button Content="OK" IsDefault="True" HorizontalAlignment="Right" Margin="0,0,90,10" Width="75" VerticalAlignment="Bottom" Click="BtnOk_Click" />
+        <Button Content="Cancel" IsCancel="True" HorizontalAlignment="Right" Margin="0,0,10,10" Width="75" VerticalAlignment="Bottom"/>
     </Grid>
 </Window>

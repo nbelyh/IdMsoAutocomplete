@@ -15,7 +15,7 @@ namespace IdMsoAutocomplete.CompletionSupport
         private readonly ICompletionBroker _broker;
         private readonly bool _useEq;
         private ICompletionSession _currentSession;
-        public IOleCommandTarget Next { get; set; }
+        public IOleCommandTarget Next { private get; set; }
 
         public CommandFilter(IWpfTextView textView, ICompletionBroker broker, bool useEq)
         {
@@ -25,7 +25,7 @@ namespace IdMsoAutocomplete.CompletionSupport
             _currentSession = null;
         }
 
-        public int Exec(ref Guid pguidCmdGroup, uint nCmdID, uint nCmdexecopt, IntPtr pvaIn, IntPtr pvaOut)
+        public int Exec(ref Guid pguidCmdGroup, uint nCmdId, uint nCmdexecopt, IntPtr pvaIn, IntPtr pvaOut)
         {
             var handled = false;
             var hresult = VSConstants.S_OK;
@@ -33,7 +33,7 @@ namespace IdMsoAutocomplete.CompletionSupport
             // Handle various pre-processed events based on the type of event that occurred
             if (pguidCmdGroup == VSConstants.VSStd2K)
             {
-                switch ((VSConstants.VSStd2KCmdID)nCmdID)
+                switch ((VSConstants.VSStd2KCmdID)nCmdId)
                 {
                     // If an autocomplete event was completed (or a word was completed)
                     // handle accordingly and start a session if one doesn't exist
@@ -58,7 +58,7 @@ namespace IdMsoAutocomplete.CompletionSupport
 
             // Based on how the previous events were handle, continue to process
             if (!handled)
-                hresult = Next.Exec(pguidCmdGroup, nCmdID, nCmdexecopt, pvaIn, pvaOut);
+                hresult = Next.Exec(pguidCmdGroup, nCmdId, nCmdexecopt, pvaIn, pvaOut);
 
             // After the pre-processing has been performed, evaluate the current state 
             // and session
@@ -66,7 +66,7 @@ namespace IdMsoAutocomplete.CompletionSupport
             {
                 if (pguidCmdGroup == VSConstants.VSStd2K)
                 {
-                    switch ((VSConstants.VSStd2KCmdID)nCmdID)
+                    switch ((VSConstants.VSStd2KCmdID)nCmdId)
                     {
                         // If a character was entered, check to see what character
                         // and determine if we should start a session

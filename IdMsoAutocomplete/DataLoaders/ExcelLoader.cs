@@ -4,10 +4,10 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using IdMsoAutocomplete.Configuration;
-using OfficeOpenXml;
 using Microsoft.VisualStudio.Language.Intellisense;
+using OfficeOpenXml;
 
-namespace IdMsoAutocomplete
+namespace IdMsoAutocomplete.DataLoaders
 {
     public class Entry
     {

@@ -2,6 +2,7 @@
 using System.ComponentModel.Composition;
 using System.Linq;
 using IdMsoAutocomplete.Configuration;
+using IdMsoAutocomplete.DataLoaders;
 using Microsoft.VisualStudio.Editor;
 using Microsoft.VisualStudio.Language.Intellisense;
 using Microsoft.VisualStudio.OLE.Interop;
