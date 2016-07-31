@@ -1,9 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 14
-VisualStudioVersion = 14.0.25420.1
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdMsoAutocomplete", "IdMsoAutocomplete\IdMsoAutocomplete.csproj", "{35CBAE7E-C672-4D97-A07D-CFAD5FEE5187}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdMsoAutocomplete.2013", "IdMsoAutocomplete\IdMsoAutocomplete.2013.csproj", "{35CBAE7E-C672-4D97-A07D-CFAD5FEE5187}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdMsoAutocomplete.2015", "IdMsoAutocomplete\IdMsoAutocomplete.2015.csproj", "{029C7CD3-F828-4E04-B5E7-97C9C8F56ED8}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{35CBAE7E-C672-4D97-A07D-CFAD5FEE5187}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{35CBAE7E-C672-4D97-A07D-CFAD5FEE5187}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{35CBAE7E-C672-4D97-A07D-CFAD5FEE5187}.Release|Any CPU.Build.0 = Release|Any CPU
+		{029C7CD3-F828-4E04-B5E7-97C9C8F56ED8}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{029C7CD3-F828-4E04-B5E7-97C9C8F56ED8}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{029C7CD3-F828-4E04-B5E7-97C9C8F56ED8}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{029C7CD3-F828-4E04-B5E7-97C9C8F56ED8}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

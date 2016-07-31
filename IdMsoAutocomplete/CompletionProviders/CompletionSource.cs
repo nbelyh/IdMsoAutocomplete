@@ -45,10 +45,17 @@ namespace IdMsoAutocomplete.CompletionProviders
 
         private static readonly string[] SupportedControlsTypes =
         {
+            "separator",
+            "box",
             "button",
+            "buttonGroup",
+            "editBox",
             "toggleButton",
             "splitButton",
             "menu",
+            "dynamicMenu",
+            "menuSeparator",
+            "separator",
             "gallery",
             "checkBox",
             "comboBox",
@@ -74,18 +81,18 @@ namespace IdMsoAutocomplete.CompletionProviders
             int column;
             vsTextView.GetCaretPos(out line, out column);
 
-            XmlDocument doc = _xmlLanguageService.GetParseTree(
+            var doc = _xmlLanguageService.GetParseTree(
                 _xmlLanguageService.GetSource(vsTextView), vsTextView, line, column, Microsoft.VisualStudio.Package.ParseReason.CompleteWord);
 
             if (doc == null || !SupportedNamespaces.Contains(doc.RootNamespaceURI))
                 return;
 
-            NodeFinder nf = new NodeFinder(line, column);
+            var nf = new NodeFinder(line, column);
             nf.Visit(doc);
 
             if (nf.Scope is XmlAttribute)
             {
-                XmlAttribute attr = (XmlAttribute)nf.Scope;
+                var attr = (XmlAttribute)nf.Scope;
 
                 var attrName = attr.LocalName;
 
@@ -94,7 +101,7 @@ namespace IdMsoAutocomplete.CompletionProviders
                     if (_entries == null)
                         _entries = ExcelLoader.GetIds(_serviceProvider);
 
-                    XmlElement elt = (XmlElement)attr.Parent;
+                    var elt = (XmlElement)attr.Parent;
                     IEnumerable<Entry> completions = null;
 
                     if (elt == null)
@@ -110,9 +117,16 @@ namespace IdMsoAutocomplete.CompletionProviders
                         completions = GetEntries(type);
 
                         var eltParent = elt.Parent as XmlElement;
-                        bool backstage = (eltParent != null && eltParent.LocalName == "backstage");
-
-                        completions = completions.Where(e => (e.TabSet == "None (Backstage View)") == backstage);
+                        if (eltParent != null && eltParent.LocalName == "backstage")
+                            completions = completions.Where(e => e.TabSet == "None (Backstage View)");
+                        else if (eltParent != null && eltParent.LocalName == "tabSet")
+                            completions = completions.Where(e => e.TabSet != "None (Core Tab)");
+                        else
+                            completions = completions.Where(e => e.TabSet == "None (Core Tab)");
+                    }
+                    else if (type == "tabSet")
+                    {
+                        completions = GetEntries(type);
                     }
                     else if (type == "group")
                     {
@@ -128,7 +142,7 @@ namespace IdMsoAutocomplete.CompletionProviders
                         var tab = GetParentItemIdMso(elt, "tab");
                         var group = GetParentItemIdMso(elt, "group");
                         var contextMenu = GetParentItemIdMso(elt, "contextMenu");
-    
+
                         if (attrName == "idMso")
                             completions = GetEntries(type);
                         else
@@ -198,14 +212,14 @@ namespace IdMsoAutocomplete.CompletionProviders
                     if (completions != null)
                     {
                         completionSets.Clear();
-                        completionSets.Add(new CompletionSet("idMso", "idMso", CreateTrackingSpan(session), 
+                        completionSets.Add(new CompletionSet("idMso", "idMso", CreateTrackingSpan(session),
                             completions.Select(e => e.Completion), null));
                     }
                 }
                 else if (attr.LocalName == "imageMso")
                 {
                     var completions = ImageLoader.GetMsoImages(_serviceProvider);
-                
+
                     completionSets.Clear();
                     completionSets.Add(new CompletionSet("imageMso", "imageMso", CreateTrackingSpan(session), completions, null));
                 }

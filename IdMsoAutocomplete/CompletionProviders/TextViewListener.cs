@@ -12,6 +12,7 @@ using Microsoft.VisualStudio.TextManager.Interop;
 using Microsoft.VisualStudio.Utilities;
 using Microsoft.XmlEditor;
 using ErrorHandler = Microsoft.VisualStudio.ErrorHandler;
+using System.Windows.Threading;
 
 namespace IdMsoAutocomplete.CompletionProviders
 {
@@ -33,10 +34,11 @@ namespace IdMsoAutocomplete.CompletionProviders
         public void VsTextViewCreated(IVsTextView textViewAdapter)
         {
             // Set up the Completion handler for xml documents
-            IWpfTextView view = AdaptersFactory.GetWpfTextView(textViewAdapter);
+            var view = AdaptersFactory.GetWpfTextView(textViewAdapter);
 
             var xmlLanguageService = (XmlLanguageService)ServiceProvider.GetService(typeof(XmlLanguageService));
-            MsoImageCommandFilter filter = new MsoImageCommandFilter(view, CompletionBroker, xmlLanguageService);
+            var quoteChar = xmlLanguageService.XmlPrefs.AutoInsertAttributeQuotes;
+            var filter = new MsoImageCommandFilter(view, CompletionBroker, quoteChar);
 
             IOleCommandTarget next;
             ErrorHandler.ThrowOnFailure(textViewAdapter.AddCommandFilter(filter, out next));
@@ -48,13 +50,13 @@ namespace IdMsoAutocomplete.CompletionProviders
     {
         private readonly IWpfTextView _textView;
         private readonly ICompletionBroker _broker;
-        private readonly XmlLanguageService _xmlLanguageService;
+        private readonly bool _useEq;
         private ICompletionSession _currentSession;
         public IOleCommandTarget Next { get; set; }
 
-        public MsoImageCommandFilter(IWpfTextView textView, ICompletionBroker broker, XmlLanguageService xmlLanguageService)
+        public MsoImageCommandFilter(IWpfTextView textView, ICompletionBroker broker, bool useEq)
         {
-            _xmlLanguageService = xmlLanguageService;
+            _useEq = useEq;
             _textView = textView;
             _broker = broker;
             _currentSession = null;
@@ -112,7 +114,7 @@ namespace IdMsoAutocomplete.CompletionProviders
                                 StartSession();
                             }
                             // If the Session already exists and a key is pressed continue to filter the existing session
-                            else if (DoesSessionExist)
+                            else if (_currentSession != null)
                             {
                                 Filter();
                             }
@@ -169,7 +171,10 @@ namespace IdMsoAutocomplete.CompletionProviders
             _currentSession.Dismissed += (sender, args) => _currentSession = null;
 
             // Start the new session
-            _currentSession.Start();
+
+            if (!_currentSession.IsStarted)
+                _currentSession.Start();
+
             return true;
         }
 
@@ -177,7 +182,19 @@ namespace IdMsoAutocomplete.CompletionProviders
         {
             // Handle non-existant Sessions
             if (_currentSession == null)
+            {
+                //auto-complete after auto-complete (we are not the only ones)
+                var timer = new DispatcherTimer();
+                timer.Tick += (o, e) =>
+                {
+                    timer.Stop();
+                    StartSession();
+                };
+                timer.Interval = TimeSpan.FromMilliseconds(100);
+                timer.Start();
+
                 return false;
+            }
                 
             // Based off of the available selection, determine if it should be dismissed (via Dismiss) or
             // output (via Commit)
@@ -217,19 +234,17 @@ namespace IdMsoAutocomplete.CompletionProviders
             return true;
         }
 
-        private bool DoesSessionExist
-        {
-            // Ensures that the current session exists
-            get { return _currentSession != null;  }
-        }
-
         private bool IsTriggerKey(IntPtr pvaIn)
         {
-            char key = (char)(ushort)Marshal.GetObjectForNativeVariant(pvaIn);
+            var ch = (char) (ushort) Marshal.GetObjectForNativeVariant(pvaIn);
 
-            char quoteChar = _xmlLanguageService.XmlPrefs.AutoInsertAttributeQuotes ? '=' : '"';
+            if (ch == '\'' || ch == '\"' || ch == ' ')
+                return true;
 
-            return key.Equals(quoteChar);
+            if (_useEq && ch == '=')
+                return true;
+
+            return false;
         }
         
     }
