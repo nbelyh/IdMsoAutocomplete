@@ -70,8 +70,20 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="LICENSE.txt">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="Package.png">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="Dependencies\14\Microsoft.XmlEditor.dll" />
-    <Content Include="Package.ico" />
+    <Content Include="Package.ico">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2016\_imageMso.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.2015.vsixmanifest" />
     <None Include="Key.snk" />
     <Content Include="OfficeData\Office2010\AccessControls.xlsx">
