@@ -26,6 +26,7 @@ namespace IdMsoAutocomplete.Configuration
         Office2010,
         Office2013,
         Office2016,
+        Office2019,
     }
 
     [ClassInterface(ClassInterfaceType.AutoDual)]

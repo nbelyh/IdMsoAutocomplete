@@ -1,18 +1,15 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
-# Visual Studio 2013
-VisualStudioVersion = 12.0.40629.0
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.30204.135
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdMsoAutocomplete.2013", "IdMsoAutocomplete\IdMsoAutocomplete.2013.csproj", "{35CBAE7E-C672-4D97-A07D-CFAD5FEE5187}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdMsoAutocomplete.2015", "IdMsoAutocomplete\IdMsoAutocomplete.2015.csproj", "{029C7CD3-F828-4E04-B5E7-97C9C8F56ED8}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{5DDA209E-CF66-4362-BA61-4F29489E43D7}"
-	ProjectSection(SolutionItems) = preProject
-		.nuget\packages.config = .nuget\packages.config
-	EndProjectSection
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdMsoAutocomplete.2017", "IdMsoAutocomplete\IdMsoAutocomplete.2017.csproj", "{19448027-3EA0-4C27-9CC8-1FDCA46C343A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IdMsoAutocomplete.2019", "IdMsoAutocomplete\IdMsoAutocomplete.2019.csproj", "{4272136B-FD38-4B55-9D9A-601137ED502C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -32,8 +29,15 @@ Global
 		{19448027-3EA0-4C27-9CC8-1FDCA46C343A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{19448027-3EA0-4C27-9CC8-1FDCA46C343A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{19448027-3EA0-4C27-9CC8-1FDCA46C343A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4272136B-FD38-4B55-9D9A-601137ED502C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4272136B-FD38-4B55-9D9A-601137ED502C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4272136B-FD38-4B55-9D9A-601137ED502C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4272136B-FD38-4B55-9D9A-601137ED502C}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5704780C-D123-403F-B9E0-0F8994008ABA}
 	EndGlobalSection
 EndGlobal
