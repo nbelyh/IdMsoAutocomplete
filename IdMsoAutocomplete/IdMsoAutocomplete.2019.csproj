@@ -100,6 +100,102 @@
     <Content Include="OfficeData\Office2016\_imageMso.zip">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
+    <Content Include="OfficeData\Office2019\accesscontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\excelcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\onenotecontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookaddritemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookapptitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookdlstitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookexplorercontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlooklogitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookmailitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookmailreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookmmseditcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookmmsreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookpostitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookpostreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookreportitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookreqreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookreqsendcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookresenditemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookrespcountercontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookresponsereadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookresponsesendcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookrssitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlookshareitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlooksmseditcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlooksmsreadcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\outlooktaskitemcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\powerpointcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\projectcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\publishercontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\visiocontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\wordcontrols.xlsx">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
+    <Content Include="OfficeData\Office2019\_imageMso.zip">
+      <IncludeInVSIX>true</IncludeInVSIX>
+    </Content>
     <None Include="source.extension.2019.vsixmanifest" />
     <Content Include="OfficeData\Office2010\AccessControls.xlsx">
       <IncludeInVSIX>true</IncludeInVSIX>
@@ -440,9 +536,7 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="OfficeData\Office2019\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <PackageReference Include="EPPlus">
       <Version>4.5.3.3</Version>
