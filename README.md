@@ -1,9 +1,12 @@
 # IdMsoAutocomplete
 
-https://marketplace.visualstudio.com/items?itemName=NikolayBelyh.IdMsoAutocompletevs2022
-https://marketplace.visualstudio.com/items?itemName=NikolayBelyh.IdMsoAutocompletevs2019
-https://marketplace.visualstudio.com/items?itemName=NikolayBelyh.IdMsoAutocompletevs2017
-https://marketplace.visualstudio.com/items?itemName=NikolayBelyh.IdMsoAutocompletevs2013
+VS 2022: https://marketplace.visualstudio.com/items?itemName=NikolayBelyh.IdMsoAutocompletevs2022
+
+VS 2019: https://marketplace.visualstudio.com/items?itemName=NikolayBelyh.IdMsoAutocompletevs2019
+
+VS 2017: https://marketplace.visualstudio.com/items?itemName=NikolayBelyh.IdMsoAutocompletevs2017
+
+VS 2013: https://marketplace.visualstudio.com/items?itemName=NikolayBelyh.IdMsoAutocompletevs2013
 
 The extension provides autocomplete for CustomUI for office ribbon (means, auto-complete for the built-in item identifiers, like idMso, insertBeforeMso, insertAfterMso and imageMso).
 
