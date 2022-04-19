@@ -1,5 +1,7 @@
 # IdMsoAutocomplete
 
+https://marketplace.visualstudio.com/items?itemName=NikolayBelyh.IdMsoAutocompletevs2022
+https://marketplace.visualstudio.com/items?itemName=NikolayBelyh.IdMsoAutocompletevs2019
 https://marketplace.visualstudio.com/items?itemName=NikolayBelyh.IdMsoAutocompletevs2017
 https://marketplace.visualstudio.com/items?itemName=NikolayBelyh.IdMsoAutocompletevs2013
 
@@ -14,3 +16,5 @@ Office 2010, 2013 and 2016 are supported.
 Preview:
 
 ![image](https://nikolaybelyh.gallerycdn.vsassets.io/extensions/nikolaybelyh/idmsoautocompletevs2013/1.0.1/1484784919841/223310/1/ribbon.gif)
+
+Because this extension is using private assembly for XML parsing, had to do a version-per-visual-studio version
